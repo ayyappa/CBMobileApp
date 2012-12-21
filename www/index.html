@@ -85,7 +85,7 @@
 		            window.plugins.childBrowser.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));
 			    }); */
 
-			    $j.mobile.changePage('#mainpage', "slide", false, true);
+			    //$j.mobile.changePage('#mainpage', "slide", false, true);
 			    $j.mobile.pageLoading();
 			    getVacations(function() {
 			        $j.mobile.pageLoading(true);
@@ -142,7 +142,7 @@
         </script>
     </head>
     <body>
-        <div data-role="page" data-theme="b" id="loginpage">
+        <!--<div data-role="page" data-theme="b" id="loginpage">
             <div data-role="header">
                 <img alt="Logo" src="cblogos.gif" style="float:center;display:inline;">
             </div>
@@ -152,7 +152,7 @@
             <div data-role="footer">
                 <h4>CriterionBrock</h4>
             </div>
-        </div>
+        </div>-->
         <div data-role="page" data-theme="b" id="mainpage">
             <div data-role="header" data-backbtn="false">
 				<form name="useridform" id="useridform">
