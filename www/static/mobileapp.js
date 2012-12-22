@@ -159,9 +159,13 @@ function getVacations(callback) {
         $j.each(response.records,
         function() {
             var id = this.Id;
+			var parts = this.CreatedDate.split('T');
+			var date =  parts[0].split('-');
+			var timeparts = parts[1];
+			var time = timeparts.split(":");
             $j('<li></li>')
             .hide()
-            .append('<a href="#"><h2> Account Name:' + this.Account.Name + ' <br> Date opened:' + this.CreatedDate+ ' <br> Priority :' + this.Priority+ '<br> Measures assigned:'+this.How_many_measures_in_this_request__c+'<br> Measures completed:'+this.Measures_completed__c +'</h2></a>')
+            .append('<a href="#"><h2>' + this.Account.Name + ' <br>' + date[1]+"/"+date[2]+"/"+date[0]+" "+time[0]+":"+time[1]+ ' <br> Priority :' + this.Priority+ '<br> Measures assigned:'+this.How_many_measures_in_this_request__c+'<br> Measures completed:'+this.Measures_completed__c +'</h2></a>')
             .click(function(e) {
                 e.preventDefault();
                 $j.mobile.pageLoading();
@@ -171,12 +175,16 @@ function getVacations(callback) {
                 client.retrieve("Case", id, "Id,Account.Name,Priority,Origin,Subject,Description,CreatedDate,Reason,ClosedDate,Status,Type,How_many_bids_in_this_request__c,Bids_assigned_to__c,Bids_completed__c,Bid_needs_information_from_purchasing__c,Bid_needs_information_from_AE__c,How_many_measures_in_this_request__c,Measures_assigned_to__c,Measures_completed__c,Includes_special_order_products__c,Includes_common_area__c"
                 ,
                 function(response) {
+					var parts = response.CreatedDate.split('T');
+					var date =  parts[0].split('-');
+					var timeparts = parts[1];
+					var time = timeparts.split(":");
                     $j('#Name').html(response.Account.Name);
                     $j('#Priority').html(response.Priority);
                     $j('#Origin').html(response.Origin);
                     $j('#Subject').html(response.Subject);
                     $j('#Description').html(response.Description);
-                    $j('#CreatedDate').html(response.CreatedDate);
+                    $j('#CreatedDate').html(date[1]+"/"+date[2]+"/"+date[0]+" "+time[0]+":"+time[1]);
                     $j('#Reason').html(response.Reason);
                     $j('#ClosedDate').html(response.ClosedDate);
                     $j('#Status').html(response.Status);
