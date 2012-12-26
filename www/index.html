@@ -36,7 +36,7 @@
         <title>Products</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" href="static/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="static/jquery.mobile-1.2.0.min.css" />
         <script type="text/javascript" src="static/jquery-1.8.3.min.js"></script>
         <script type="text/javascript" src="static/jquery.mobile-1.2.0.min.js"></script>     
         <script type="text/javascript" src="static/forcetk.js"></script>
@@ -44,7 +44,9 @@
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8" src="childbrowser.js"></script>
         
-           
+        
+        
+        
        
         <script type="text/javascript">
 			// OAuth Configuration
@@ -175,7 +177,7 @@
 						           oauthResponse[parts[0]] = unescape(parts[1]);
 						        }
 						    }
-						    alert(oauthResponse.access_token)*/
+						    alert(oauthResponse.access_token) */
 						    //$j('#cookie').val($j.cookie("access_token"))
 			                oauthCallback(unescape(loc));
 			            }
@@ -205,8 +207,8 @@
                 <h4>CriterionBrock</h4>
             </div>
         </div> -->
-        <div data-role="page"  data-theme="b" id="mainpage">
-            <div data-role="header" data-backbtn="false">
+        <div data-role="page"  data-theme="c" id="mainpage">
+            <div data-role="header">
                 <form name="useridform" id="useridform">
                     <!-- <button data-role="button" id="newbtn">New</button> -->
                     <input  type="hidden" name="userid" id="userid" />
@@ -216,7 +218,7 @@
                 <h3 align="center">Cases List</h3>               
             </div>
             
-            <div data-role="content" data-scroll="true">
+            <div data-role="content" >
                 <ul id="productlist" data-inset="true" data-role="listview" 
                      data-dividertheme="b">
                 </ul>
@@ -228,8 +230,9 @@
                 <h4>CriterionBrock</h4>
             </div>
         </div>
-        <div data-role="page" data-theme="b" id="detailpage">
+        <div data-role="page" data-theme="c" id="detailpage" >
             <div data-role="header">
+            	<a data-role="button" data-rel="back" data-theme="b">Back</a>
                 <h1 ><img alt="Logo" src="cblogoss.gif" style="float:center;display:inline;"></h1>
             </div>
             <div data-role="content">
@@ -261,7 +264,7 @@
                 </table>
                 <form name="accountdetail" id="accountdetail">
                     <input type="hidden" name="Id" id="Id" />
-                    <button data-role="button" id="editbtn">Edit</button>
+                    <button data-role="button" id="editbtn" data-theme="b">Edit</button>
                     <!-- <button data-role="button" id="deletebtn" data-icon="delete" 
                         data-theme="e">Delete</button> -->
                 </form>
@@ -270,8 +273,9 @@
                 <h4>CriterionBrock</h4>
             </div>
         </div>
-        <div data-role="page" data-theme="b" id="editpage">
+        <div data-role="page" data-theme="c" id="editpage">
             <div data-role="header">
+            <a data-role="button" data-rel="back" data-theme="b">Back</a>
                 <!-- <h1 id="accformheader">Edit Case</h1> -->
                 <h1 ><img alt="Logo" src="cblogoss.gif" style="float:center;display:inline;"></h1>
             </div>
@@ -289,7 +293,7 @@
                                 data-theme="c"/></td>
                         </tr> -->
                     </table>
-                    <button data-role="button" id="actionbtn">Action</button>
+                    <button data-role="button" id="actionbtn" data-theme="b">Action</button>
                 </form>
             </div>
             <div data-role="footer">
