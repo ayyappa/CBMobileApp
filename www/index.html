@@ -36,9 +36,9 @@
         <title>Products</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<link rel="stylesheet" href="static/jquery.mobile-1.0rc1.min.css" />
-        <script type="text/javascript" src="static/jquery-1.6.4.min.js"></script>
-        <script type="text/javascript" src="static/jquery.mobile-1.0rc1.min.js"></script>     
+		<link rel="stylesheet" href="static/jquery.mobile-1.2.0.min.css" />
+        <script type="text/javascript" src="static/jquery-1.8.3.min.js"></script>
+        <script type="text/javascript" src="static/jquery.mobile-1.2.0.min.js"></script>     
         <script type="text/javascript" src="static/forcetk.js"></script>
         <script type="text/javascript" src="static/mobileapp.js"></script>
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
@@ -161,7 +161,7 @@
 			$j(document).ready(function() {
 			document.addEventListener("deviceready", onDeviceReady, false);
 
-			/*function onDeviceReady() {
+			function onDeviceReady() {
 				addClickListeners();
 				  window.plugins.childBrowser.onLocationChange = function(loc) {
 			            if (loc.startsWith(redirectUri)) {
@@ -175,7 +175,7 @@
 						           oauthResponse[parts[0]] = unescape(parts[1]);
 						        }
 						    }
-						    alert(oauthResponse.access_token)
+						    alert(oauthResponse.access_token)*/
 						    //$j('#cookie').val($j.cookie("access_token"))
 			                oauthCallback(unescape(loc));
 			            }
@@ -187,7 +187,7 @@
 			 	//else
 			  		//cookieCallback($j.cookie("access_token1"),$j.cookie("refresh_token1"),$j.cookie("instance_url1"),$j.cookie("userid_val1"))
 			       
-			}*/
+			}
 
 			});
         </script>
