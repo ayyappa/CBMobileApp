@@ -55,9 +55,8 @@ if (forcetk.Client === undefined) {
      *                  PhoneGap etc
      * @constructor
      */
-    forcetk.Client = function(clientId,client_secret, loginUrl, proxyUrl) {
+    forcetk.Client = function(clientId, loginUrl, proxyUrl) {
         this.clientId = clientId;
-        this.client_secret =client_secret;
         this.loginUrl = loginUrl || 'https://login.salesforce.com/';
         if (typeof proxyUrl === 'undefined' || proxyUrl === null) {
             if (location.protocol === 'file:') {
@@ -96,25 +95,19 @@ if (forcetk.Client === undefined) {
      */
     forcetk.Client.prototype.refreshAccessToken = function(callback, error) {
         var that = this;
-       // var url = this.loginUrl + '/services/oauth2/token';
-       var url = this.loginUrl + "/services/oauth2/token";
-       // var dataall = 'grant_type=refresh_token&client_id='+this.clientId+'&client_secret='+this.client_secret+'&refresh_token='+this.refreshToken;
-        
-       // alert(url+'?'+dataall);
+        var url = this.loginUrl + '/services/oauth2/token';
         $j.ajax({
-            type: "POST",
+            type: 'POST',
             url: (this.proxyUrl !== null) ? this.proxyUrl: url,
-            
-            //cache: false,
-            //processData: false,
-            //data: 'grant_type=refresh_token&client_id='+this.clientId+'&client_secret='+this.client_secret+'&refresh_token='+this.refreshToken,
-            data:"grant_type=password&client_id=3MVG9CVKiXR7Ri5qRCD_hiGHaAA6mRVijVGaUI7ODAZayPQsu68hvFDTNSo.rfI0kSphbrfIPYkHoEAF.5fTP&client_secret=3097948763786060642&username=chetan@axxonet.com&password=axxonet#9977saUMChV2F7lmpu7V46bTaYGd",
+            cache: false,
+            processData: false,
+            data: 'grant_type=refresh_token&client_id=' + this.clientId + '&refresh_token=' + this.refreshToken,
             success: callback,
             error: error,
-            //dataType: "json",
+            dataType: "json",
             beforeSend: function(xhr) {
                 if (that.proxyUrl !== null) {
-                    xhr.setRequestHeader("SalesforceProxy-Endpoint", url);
+                    xhr.setRequestHeader('SalesforceProxy-Endpoint', url);
                 }
             }
         });
