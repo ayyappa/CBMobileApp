@@ -31,7 +31,14 @@
   */
 
 function errorCallback(jqXHR){
-    alert(jqXHR.statusText + ": " + jqXHR.responseText);
+    alert(jqXHR.statusText + ": Testing " + jqXHR.responseText);
+   /* window.plugins.childBrowser.onLocationChange = function(loc) {
+        if (loc.startsWith(redirectUri)) {
+            window.plugins.childBrowser.close();
+            oauthCallback(unescape(loc));
+        }
+    };
+    window.plugins.childBrowser.showWebPage(getAuthorizeUrl(loginUrl, clientId, redirectUri));*/
 }
 
 function addClickListeners() {
@@ -93,7 +100,7 @@ function addClickListeners() {
     $j('#editbtn').click(function(e) {
         // Get account fields and show the 'Edit Account' form
         e.preventDefault();
-        $j.mobile.pageLoading();
+        $j.mobile.showPageLoadingMsg();
         client.retrieve("Case", $j('#accountdetail').find('#Id').val()
         , "Measures_completed__c,Id",
         function(response) {
@@ -105,7 +112,7 @@ function addClickListeners() {
             $j('#actionbtn')
             .unbind('click.btn')
             .bind('click.btn', updateHandler);
-            $j.mobile.pageLoading(true);
+            $j.mobile.hidePageLoadingMsg(true);
             $j.mobile.changePage('#editpage', "slide", false, true);
         }, errorCallback);
     });
@@ -125,7 +132,7 @@ function getAccounts(callback) {
             .append('<a href="#"><h2>' + this.Name + ' - Industry : $' + this.Industry+ '</h2></a>')
             .click(function(e) {
                 e.preventDefault();
-                $j.mobile.pageLoading();
+                $j.mobile.showPageLoadingMsg();
                 // We could do this more efficiently by adding Industry and
                 // TickerSymbol to the fields in the SELECT, but we want to
                 // show dynamic use of the retrieve function...
@@ -135,7 +142,7 @@ function getAccounts(callback) {
                     $j('#Name').html(response.Name);
                     $j('#Industry').html(response.Industry);
                     $j('#Id').val(response.Id);
-                    $j.mobile.pageLoading(true);
+                    $j.mobile.hidePageLoadingMsg(true);
                     $j.mobile.changePage('#detailpage', "slide", false, true);
                 }, errorCallback);
             })
@@ -159,26 +166,27 @@ function getVacations(callback) {
         $j.each(response.records,
         function() {
             var id = this.Id;
-			var parts = this.CreatedDate.split('T');
-			var date =  parts[0].split('-');
-			var timeparts = parts[1];
-			var time = timeparts.split(":");
+           
+            var parts = this.CreatedDate.split('T');
+            var date = parts[0].split('-');
+            var timeparts = parts[1];
+            var time = timeparts.split(":");
             $j('<li></li>')
             .hide()
-            .append('<a href="#"><h2>' + this.Account.Name + ' <br>' + date[1]+"/"+date[2]+"/"+date[0]+" "+time[0]+":"+time[1]+ ' <br> Priority :' + this.Priority+ '<br> Measures assigned:'+this.How_many_measures_in_this_request__c+'<br> Measures completed:'+this.Measures_completed__c +'</h2></a>')
+            .append('<a href="#"><h2>' + this.Account.Name + ' <br>'+ date[1]+"/"+date[2]+"/"+date[0]+" "+time[0]+":"+time[1]+ ' <br> Priority :' + this.Priority+ '<br> Measures assigned:'+this.How_many_measures_in_this_request__c+'<br> Measures completed:'+this.Measures_completed__c +'</h2></a>')
             .click(function(e) {
                 e.preventDefault();
-                $j.mobile.pageLoading();
+                $j.mobile.showPageLoadingMsg();
                 // We could do this more efficiently by adding Industry and
                 // TickerSymbol to the fields in the SELECT, but we want to
                 // show dynamic use of the retrieve function...
                 client.retrieve("Case", id, "Id,Account.Name,Priority,Origin,Subject,Description,CreatedDate,Reason,ClosedDate,Status,Type,How_many_bids_in_this_request__c,Bids_assigned_to__c,Bids_completed__c,Bid_needs_information_from_purchasing__c,Bid_needs_information_from_AE__c,How_many_measures_in_this_request__c,Measures_assigned_to__c,Measures_completed__c,Includes_special_order_products__c,Includes_common_area__c"
                 ,
                 function(response) {
-					var parts = response.CreatedDate.split('T');
-					var date =  parts[0].split('-');
-					var timeparts = parts[1];
-					var time = timeparts.split(":");
+                	var parts = response.CreatedDate.split('T');
+                    var date = parts[0].split('-');
+                    var timeparts = parts[1];
+                    var time = timeparts.split(":");
                     $j('#Name').html(response.Account.Name);
                     $j('#Priority').html(response.Priority);
                     $j('#Origin').html(response.Origin);
@@ -200,7 +208,7 @@ function getVacations(callback) {
                     $j('#Includes_special_order_products__c').html(response.Includes_special_order_products__c);
                     $j('#Includes_common_area__c').html(response.Includes_common_area__c);
                     $j('#Id').val(response.Id);
-                    $j.mobile.pageLoading(true);
+                    $j.mobile.hidePageLoadingMsg();
                     $j.mobile.changePage('#detailpage', "slide", false, true);
                 }, errorCallback);
             })
@@ -226,11 +234,11 @@ function createHandler(e) {
             fields[child.attr("name")] = child.val();
         }
     });
-    $j.mobile.pageLoading();
+    $j.mobile.showPageLoadingMsg();
     client.create('Case', fields,
     function(response) {
         getVacations(function() {
-            $j.mobile.pageLoading(true);
+            $j.mobile.hidePageLoadingMsg();
             $j.mobile.changePage('#mainpage', "slide", true, true);
         });
     }, errorCallback);
@@ -247,12 +255,12 @@ function updateHandler(e) {
             fields[child.attr("name")] = child.val();
         }
     });
-    $j.mobile.pageLoading();
+    $j.mobile.showPageLoadingMsg();
     client.update('Case', accountform.find('#Id').val(), fields
     ,
     function(response) {
         getVacations(function() {
-            $j.mobile.pageLoading(true);
+            $j.mobile.hidePageLoadingMsg();
             $j.mobile.changePage('#mainpage', "slide", true, true);
         });
     }, errorCallback);
